@@ -1,20 +1,23 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import useDebounce from "../hooks/useDebounce.js";
+import useTitle from "../hooks/useTitle.js";
 
 const DebouncedInput = () => {
   const [inputValue, setInputValue] = useState("");
+  const {setTitle} = useTitle("Viktor's page");
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
+    setTitle(e.target.value);
   };
 
-  // Uncomment this code to see how it works. The only thing you need to create is useDebounce hook
-  // const debouncedValue = useDebounce(inputValue, 2000);
+  const debouncedValue = useDebounce(inputValue, 2000);
 
-  // useEffect(() => {
-  //   console.log(
-  //     "Just for checking. This console must runs after 2 seconds of inactivity"
-  //   );
-  // }, [debouncedValue]);
+  useEffect(() => {
+    console.log(
+      "Just for checking. This console must run after 2 seconds of inactivity"
+    );
+  }, [debouncedValue]);
 
   return (
     <>
